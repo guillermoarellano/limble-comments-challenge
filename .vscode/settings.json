@@ -3,6 +3,7 @@
         "devkit",
         "Limble",
         "lmbl",
+        "arrowParens",
         "tseslint"
     ]
 }
