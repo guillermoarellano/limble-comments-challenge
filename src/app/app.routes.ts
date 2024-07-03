@@ -11,6 +11,10 @@ export const routes: Routes = [
     loadChildren: () => import('./feature/home/home.routes')
   },
   {
+    path: 'comments',
+    loadChildren: () => import('./feature/comments/comments.routes')
+  },
+  {
     // fallback route (can be used to display dedicated 404 lazy feature)
     path: '**',
     redirectTo: ''
