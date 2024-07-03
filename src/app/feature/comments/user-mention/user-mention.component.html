@@ -1,0 +1,15 @@
+<textarea
+  #commentInput
+  rows="5"
+  cols="40"
+  (keyup)="onKeyUp()"
+  placeholder="Type a comment... @ to mention someone"
+></textarea>
+
+<div *ngIf="showMenu" class="menu-container" [ngStyle]="{ top: menuPosition.y + 'px', left: menuPosition.x + 'px' }">
+  <div cdkMenu>
+    <button *ngFor="let user of filteredUsers" cdkMenuItem (click)="selectUser(user)">
+      {{ user }}
+    </button>
+  </div>
+</div>
