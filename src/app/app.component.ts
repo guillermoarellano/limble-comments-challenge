@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 
 @Component({
   selector: 'lmbl-root',
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  imports: [MainLayoutComponent],
+  template: '<lmbl-main-layout />'
 })
-export class AppComponent {
-  title = 'limble-comments-challenge';
-}
+export class AppComponent {}

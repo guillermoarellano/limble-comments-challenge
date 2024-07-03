@@ -1,0 +1,33 @@
+<mat-toolbar class="fixed shadow-lg !bg-white">
+  <div class="container mx-auto px-10">
+    <div class="flex justify-between">
+      <a href="/" target="_blank">
+        <img width="64" src="images/limble_logo.png" alt="Limble Logo" />
+      </a>
+
+      <div class="flex items-center gap-4">
+        @for (route of ['home', 'stocks']; track $index) {
+          <a
+            [routerLink]="['/', route]"
+            routerLinkActive
+            #rla="routerLinkActive"
+            [color]="rla.isActive ? 'accent' : 'primary'"
+            mat-flat-button
+            >{{ route | titlecase }}</a
+          >
+        }
+      </div>
+    </div>
+  </div>
+</mat-toolbar>
+
+<main class="container mx-auto mt-16 p-10">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="mt-auto p-10 bg-white">
+  <div class="container mx-auto text-center">
+    Made with 💪 by
+    <a class="text-blue-700 hover:font-bold" href="http://meetguillermo.com" target="_blank">Guillermo Arellano</a>
+  </div>
+</footer>

@@ -1,9 +1,9 @@
-import { ApplicationConfig, provideExperimentalZonelessChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ApplicationConfig } from '@angular/core';
 
 import { routes } from './app.routes';
+import { provideCore } from './core/core';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideExperimentalZonelessChangeDetection(), provideRouter(routes), provideAnimationsAsync()]
+  providers: [provideCore({ routes })]
+  //all global providers should be defined in ./core/core.ts
 };
