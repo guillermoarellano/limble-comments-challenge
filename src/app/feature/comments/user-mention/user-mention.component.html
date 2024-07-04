@@ -8,8 +8,8 @@
 
 <div *ngIf="showMenu" class="menu-container" [ngStyle]="{ top: menuPosition.y + 'px', left: menuPosition.x + 'px' }">
   <div cdkMenu>
-    <button *ngFor="let user of filteredUsers" cdkMenuItem (click)="selectUser(user)">
-      {{ user }}
-    </button>
+    <li class="menu-item" *ngFor="let user of filteredUsers" cdkMenuItem>
+      <button (click)="selectUser(user)">{{ user }}</button>
+    </li>
   </div>
 </div>
