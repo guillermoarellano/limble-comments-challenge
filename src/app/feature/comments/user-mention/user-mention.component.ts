@@ -13,8 +13,14 @@ import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angu
 export class UserMentionComponent {
   @ViewChild('commentInput') commentInput!: ElementRef<HTMLTextAreaElement>;
 
-  users = ['John Doe', 'Jane Smith', 'Alice Johnson', 'Bob Brown'];
-  filteredUsers: string[] = [];
+  users: { userID: number; name: string }[] = [
+    { userID: 1, name: 'Kevin' },
+    { userID: 2, name: 'Jeff' },
+    { userID: 3, name: 'Bryan' },
+    { userID: 4, name: 'Gabbey' }
+  ];
+
+  filteredUsers: { userID: number; name: string }[] = [];
   showMenu = false;
   menuPosition = { x: 0, y: 0 };
 
@@ -26,7 +32,7 @@ export class UserMentionComponent {
 
     if (lastAtIndex !== -1) {
       const mentionQuery = textBeforeCursor.substring(lastAtIndex + 1);
-      this.filteredUsers = this.users.filter((user) => user.toLowerCase().includes(mentionQuery.toLowerCase()));
+      this.filteredUsers = this.users.filter((user) => user.name.toLowerCase().includes(mentionQuery.toLowerCase()));
 
       if (this.filteredUsers.length > 0) {
         this.showMenu = true;
@@ -43,13 +49,14 @@ export class UserMentionComponent {
     }
   }
 
-  selectUser(user: string): void {
+  selectUser(user: { userID: number; name: string }): void {
     const textarea = this.commentInput.nativeElement;
     const cursorPosition = textarea.selectionStart;
     const textBeforeCursor = textarea.value.substring(0, cursorPosition);
     const lastAtIndex = textBeforeCursor.lastIndexOf('@');
 
-    textarea.value = textBeforeCursor.substring(0, lastAtIndex + 1) + user + textarea.value.substring(cursorPosition);
+    textarea.value =
+      textBeforeCursor.substring(0, lastAtIndex + 1) + user.name + textarea.value.substring(cursorPosition);
 
     this.showMenu = false;
     textarea.focus();
