@@ -2,14 +2,24 @@
   #commentInput
   rows="5"
   cols="40"
-  (keyup)="onKeyUp()"
+  (keydown.ArrowDown)="arrowUpDown($event)"
+  (keydown.ArrowUp)="arrowUpDown($event)"
+  (keydown.Tab)="onTabDown()"
+  (keyup)="onKeyUp($event)"
   placeholder="Type a comment... @ to mention someone"
 ></textarea>
 
 <div *ngIf="showMenu" class="menu-container" [ngStyle]="{ top: menuPosition.y + 'px', left: menuPosition.x + 'px' }">
-  <div cdkMenu>
-    <li class="menu-item" *ngFor="let user of filteredUsers" cdkMenuItem>
-      <button (click)="selectUser(user)">{{ user.name }}</button>
+  <ul>
+    <li
+      class="menu-item"
+      tabindex="-1"
+      *ngFor="let user of filteredUsers; let i = index"
+      [class.selected]="i === selectedIndex"
+      (click)="selectUser(user)"
+      (keyup)="(null)"
+    >
+      {{ user.name }}
     </li>
-  </div>
+  </ul>
 </div>
