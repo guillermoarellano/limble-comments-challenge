@@ -14,16 +14,19 @@
 @if (showMenu) {
   <div *ngIf="showMenu" class="menu-container">
     <ul>
-      <li
-        class="menu-item"
-        tabindex="-1"
-        *ngFor="let user of filteredUsers; let i = index"
-        [class.selected]="i === selectedIndex"
-        (click)="selectUser(user)"
-        (keyup)="(null)"
-      >
-        {{ user.name }}
-      </li>
+      @for (user of filteredUsers; track $index) {
+        <li
+          class="menu-item"
+          tabindex="-1"
+          [class.selected]="$index === selectedIndex"
+          (click)="selectUser(user)"
+          (keyup)="(null)"
+        >
+          {{ user.name }}
+        </li>
+      } @empty {
+        <li>No users found</li>
+      }
     </ul>
   </div>
 }
