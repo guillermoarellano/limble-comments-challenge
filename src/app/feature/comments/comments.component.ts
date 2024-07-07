@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal, inject } from '@angular/core';
 
 import { CommentInputComponent } from './comment-input/comment-input.component';
 import { CommentsService } from './services/comments.service';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
 import { User, UserComment } from './comments';
 import { CommentComponent } from './comment/comment.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,10 +20,8 @@ export class CommentsComponent {
   private readonly commentService = inject(CommentsService);
 
   showCommentInput = false;
-
-  comments$: Observable<UserComment[]> = this.commentService.getComments();
-
-  mentionUsers$: Observable<User[]> = this.commentService.getMentionUsers();
+  comments: Signal<UserComment[]> = this.commentService.displayComments;
+  mentionUsers: Signal<User[]> = this.commentService.displayMentionUsers;
 
   showCommentInputSection(): void {
     this.showCommentInput = true;
@@ -42,7 +39,7 @@ export class CommentsComponent {
       comment,
       createdBy: 'Sonic',
       mentions: [],
-      createdDate: new Date().toISOString()
+      createdDate: ''
     };
 
     this.commentService.saveComment(newComment);

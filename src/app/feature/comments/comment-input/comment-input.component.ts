@@ -97,7 +97,7 @@ export class CommentInputComponent {
     const lastAtIndex = textBeforeCursor.lastIndexOf('@');
 
     textarea.value =
-      textBeforeCursor.substring(0, lastAtIndex + 1) + user.name + textarea.value.substring(cursorPosition);
+      textBeforeCursor.substring(0, lastAtIndex + 1) + user.name + ' ' + textarea.value.substring(cursorPosition);
 
     this.closeMenu();
   }
