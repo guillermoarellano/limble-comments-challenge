@@ -1,19 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, input } from '@angular/core';
-import { User } from '../comments';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, input, output } from '@angular/core';
+import { User, UserComment } from '../comments';
 
 @Component({
-  selector: 'lmbl-user-mention',
+  selector: 'lmbl-comment-input',
   standalone: true,
   imports: [CommonModule], // TODO: get rid of common module, new v18 control flow
-  templateUrl: './user-mention.component.html',
-  styleUrl: './user-mention.component.scss',
+  templateUrl: './comment-input.component.html',
+  styleUrl: './comment-input.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserMentionComponent {
+export class CommentInputComponent {
   @ViewChild('commentInput') commentInput!: ElementRef<HTMLTextAreaElement>;
 
   users = input.required<User[]>();
+  commentAddedEvent = output<UserComment | null>();
 
   filteredUsers: { userID: number; name: string }[] = [];
   showMenu = false;
@@ -98,5 +99,12 @@ export class UserMentionComponent {
       textBeforeCursor.substring(0, lastAtIndex + 1) + user.name + textarea.value.substring(cursorPosition);
 
     this.closeMenu();
+  }
+
+  onCommentSubmit(): void {
+    // TODO
+  }
+  onCancelButtonPress(): void {
+    this.commentAddedEvent.emit(null);
   }
 }
