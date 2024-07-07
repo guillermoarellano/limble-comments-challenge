@@ -1,2 +1,9 @@
 <p>below is user-mention component:</p>
-<lmbl-user-mention />
+<ul>
+  @for (comment of comments$ | async; track comment.commentID) {
+    <li>{{ comment.comment }}</li>
+  } @empty {
+    <li>No comments</li>
+  }
+</ul>
+<lmbl-user-mention [users]="(mentionUsers$ | async) ?? []"></lmbl-user-mention>
