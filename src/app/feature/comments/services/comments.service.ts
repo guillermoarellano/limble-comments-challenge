@@ -14,4 +14,8 @@ export class CommentsService {
   getComments(): Observable<UserComment[]> {
     return this.httpClient.get<UserComment[]>('comments.json');
   }
+
+  saveComment(): void {
+    // TODO
+  }
 }

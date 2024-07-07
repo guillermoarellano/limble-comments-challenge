@@ -12,12 +12,27 @@
           @for (comment of comments$ | async; track comment.commentID) {
             <li><lmbl-comment [comment]="comment"></lmbl-comment></li>
           } @empty {
-            <li><p>No comments</p></li>
+            <li>
+              <p>No comments</p>
+            </li>
           }
         </ul>
+        <div class="flex justify-end">
+          <button
+            type="button"
+            class="mt-4 justify-end"
+            mat-flat-button
+            (click)="addComment()"
+            [disabled]="showAddCommentSection"
+          >
+            Add Comment
+          </button>
+        </div>
       </div>
 
-      <lmbl-user-mention [users]="(mentionUsers$ | async) ?? []"></lmbl-user-mention>
+      @if (showAddCommentSection) {
+        <lmbl-user-mention [users]="(mentionUsers$ | async) ?? []"></lmbl-user-mention>
+      }
     </div>
   </div>
 </div>
