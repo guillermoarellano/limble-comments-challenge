@@ -5,6 +5,7 @@ import { CommentsService } from './services/comments.service';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { User, UserComment } from './comments';
+import { CommentComponent } from './comment/comment.component';
 
 @Component({
   selector: 'lmbl-comments',
@@ -12,7 +13,7 @@ import { User, UserComment } from './comments';
   templateUrl: './comments.component.html',
   styleUrl: './comments.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [UserMentionComponent, CommonModule],
+  imports: [UserMentionComponent, CommonModule, CommentComponent],
   providers: [CommentsService]
 })
 export class CommentsComponent {

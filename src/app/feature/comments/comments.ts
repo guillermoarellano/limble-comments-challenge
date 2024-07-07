@@ -6,7 +6,7 @@ export interface User {
 export interface UserComment {
   commentID: number;
   comment: string;
-  createdBy: User;
+  createdBy: string;
   mentions: User[];
   createdDate: string;
 }

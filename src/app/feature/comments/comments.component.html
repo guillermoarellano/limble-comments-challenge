@@ -1,9 +1,23 @@
-<p>below is user-mention component:</p>
-<ul>
-  @for (comment of comments$ | async; track comment.commentID) {
-    <li>{{ comment.comment }}</li>
-  } @empty {
-    <li>No comments</li>
-  }
-</ul>
-<lmbl-user-mention [users]="(mentionUsers$ | async) ?? []"></lmbl-user-mention>
+<div class="bg-white sm:py-6">
+  <!-- 
+  The following div container is styled to have a maximum width of 7xl (112rem) 
+  and horizontal padding of 6 units on small screens, which increases to 8 units on large screens.
+  The mx-auto class centers the container horizontally within its parent.-->
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <!-- DIV below keeps the container from horizontally scrolling beyond 672 px in large screens -->
+    <div class="mx-auto max-w-2xl">
+      <div class="mb-10">
+        <h6>Comments</h6>
+        <ul>
+          @for (comment of comments$ | async; track comment.commentID) {
+            <li><lmbl-comment [comment]="comment"></lmbl-comment></li>
+          } @empty {
+            <li><p>No comments</p></li>
+          }
+        </ul>
+      </div>
+
+      <lmbl-user-mention [users]="(mentionUsers$ | async) ?? []"></lmbl-user-mention>
+    </div>
+  </div>
+</div>
