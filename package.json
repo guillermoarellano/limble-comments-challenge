@@ -14,10 +14,7 @@
     "//////// Circular Dependency Checks analysis start": "===========================================================",
     "// run all analyze:deps:* scripts": "",
     "analyze:deps": "npm-run-all analyze:deps:**",
-    "analyze:deps:limble-comments-app:all": "madge src/main.ts --ts-config tsconfig.json --image analysis/all.png",
-    "// per building block type dep graph analysis": "",
-    "analyze:deps:limble-comments-app:ui": "madge --extensions ts --ts-config tsconfig.json --image ./deps/limble-comments-app/ui.png src/app/ui/",
-    "// copy and modify code above to add analysis for core, layout, pattern, feature, etc.": "",
+    "analyze:deps:limble-comments-app:all": "madge src/main.ts --ts-config tsconfig.json --image docs/deps/all.png",
     "//////// Circular Dependency Checks analysis end": "==========================================================="
   },
   "private": true,
