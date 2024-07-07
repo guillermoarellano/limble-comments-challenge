@@ -2,10 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { User, UserComment } from '../comments';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class CommentsService {
   httpClient = inject(HttpClient);
+  snackbar = inject(MatSnackBar);
 
   private rawMentionUsers = toSignal(this.httpClient.get<User[]>('users.json'), { initialValue: [] });
   private rawComments = toSignal(this.httpClient.get<UserComment[]>('comments.json'), { initialValue: [] });
@@ -25,7 +27,9 @@ export class CommentsService {
       mentions: verifiedMentions
     };
 
-    console.log(enrichedComment);
+    if (verifiedMentions.length !== 0) {
+      this.notifyUsers(verifiedMentions);
+    }
 
     this.comments().update((comments) => [...comments, enrichedComment]);
   }
@@ -51,5 +55,11 @@ export class CommentsService {
     }
 
     return Array.from(verifiedUsersMap.values());
+  }
+
+  private notifyUsers(mentions: User[]): void {
+    this.snackbar.open('The following users were notified: ' + mentions.map((user) => user.name).join(', '), 'Close', {
+      duration: 6000
+    });
   }
 }
