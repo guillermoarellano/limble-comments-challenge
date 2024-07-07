@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, input, output } from '@angular/core';
-import { User, UserComment } from '../comments';
+import { User } from '../comments';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'lmbl-comment-input',
   standalone: true,
-  imports: [CommonModule], // TODO: get rid of common module, new v18 control flow
+  imports: [CommonModule, MatButtonModule],
   templateUrl: './comment-input.component.html',
   styleUrl: './comment-input.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -14,7 +15,7 @@ export class CommentInputComponent {
   @ViewChild('commentInput') commentInput!: ElementRef<HTMLTextAreaElement>;
 
   users = input.required<User[]>();
-  commentAddedEvent = output<UserComment | null>();
+  commentInputSubmitEvent = output<string>();
 
   filteredUsers: { userID: number; name: string }[] = [];
   showMenu = false;
@@ -101,10 +102,10 @@ export class CommentInputComponent {
     this.closeMenu();
   }
 
-  onCommentSubmit(): void {
-    // TODO
+  onConfirmButtonPress(): void {
+    this.commentInputSubmitEvent.emit(this.commentInput.nativeElement.value);
   }
   onCancelButtonPress(): void {
-    this.commentAddedEvent.emit(null);
+    this.commentInputSubmitEvent.emit('');
   }
 }

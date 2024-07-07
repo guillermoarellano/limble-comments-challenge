@@ -26,7 +26,25 @@ export class CommentsComponent {
 
   mentionUsers$: Observable<User[]> = this.commentService.getMentionUsers();
 
-  addComment(): void {
+  showCommentInputSection(): void {
     this.showCommentInput = true;
+  }
+
+  onCommentSubmit(comment: string): void {
+    this.showCommentInput = false;
+
+    if (!comment) {
+      return;
+    }
+
+    const newComment: UserComment = {
+      commentID: 0,
+      comment,
+      createdBy: 'Sonic',
+      mentions: [],
+      createdDate: new Date().toISOString()
+    };
+
+    this.commentService.saveComment(newComment);
   }
 }

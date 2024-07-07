@@ -11,17 +11,24 @@
   placeholder="Type a comment... @ to mention someone"
 ></textarea>
 
-<div *ngIf="showMenu" class="menu-container" [ngStyle]="{ top: menuPosition.y + 'px', left: menuPosition.x + 'px' }">
-  <ul>
-    <li
-      class="menu-item"
-      tabindex="-1"
-      *ngFor="let user of filteredUsers; let i = index"
-      [class.selected]="i === selectedIndex"
-      (click)="selectUser(user)"
-      (keyup)="(null)"
-    >
-      {{ user.name }}
-    </li>
-  </ul>
+@if (showMenu) {
+  <div *ngIf="showMenu" class="menu-container">
+    <ul>
+      <li
+        class="menu-item"
+        tabindex="-1"
+        *ngFor="let user of filteredUsers; let i = index"
+        [class.selected]="i === selectedIndex"
+        (click)="selectUser(user)"
+        (keyup)="(null)"
+      >
+        {{ user.name }}
+      </li>
+    </ul>
+  </div>
+}
+
+<div class="flex justify-end mt-4 gap-2">
+  <button type="button" mat-stroked-button (click)="onCancelButtonPress()">Cancel</button>
+  <button type="button" mat-flat-button (click)="onConfirmButtonPress()">Post Comment</button>
 </div>

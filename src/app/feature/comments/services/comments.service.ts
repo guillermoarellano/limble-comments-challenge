@@ -15,7 +15,8 @@ export class CommentsService {
     return this.httpClient.get<UserComment[]>('comments.json');
   }
 
-  saveComment(): void {
-    // TODO
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  saveComment(newComment: UserComment): void {
+    // TODO: implement this
   }
 }

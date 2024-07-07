@@ -22,7 +22,7 @@
             type="button"
             class="mt-4 justify-end"
             mat-flat-button
-            (click)="addComment()"
+            (click)="showCommentInputSection()"
             [disabled]="showCommentInput"
           >
             Add Comment
@@ -31,7 +31,10 @@
       </div>
 
       @if (showCommentInput) {
-        <lmbl-comment-input [users]="(mentionUsers$ | async) ?? []"></lmbl-comment-input>
+        <lmbl-comment-input
+          [users]="(mentionUsers$ | async) ?? []"
+          (commentInputSubmitEvent)="onCommentSubmit($event)"
+        ></lmbl-comment-input>
       }
     </div>
   </div>
