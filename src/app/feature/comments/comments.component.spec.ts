@@ -1,31 +1,47 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CommentsComponent } from './comments.component';
-import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { provideExperimentalZonelessChangeDetection, signal } from '@angular/core';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
+import { render, screen, configure } from '@testing-library/angular';
+import { CommentsService } from './services/comments.service';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { CommentInputComponent } from './comment-input/comment-input.component';
+import { CommentComponent } from './comment/comment.component';
+
+configure({ dom: { testIdAttribute: 'data-test-id' } });
 
 describe('CommentsComponent', () => {
-  let component: CommentsComponent;
-  let fixture: ComponentFixture<CommentsComponent>;
+  const renderSetup = {
+    imports: [MatButtonModule, CommentInputComponent, CommonModule, CommentComponent],
+    providers: [
+      provideExperimentalZonelessChangeDetection(),
+      provideHttpClient(withInterceptorsFromDi()),
+      CommentsService
+    ]
+  };
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [CommentsComponent],
-      providers: [provideExperimentalZonelessChangeDetection()]
-    }).compileComponents();
+  it('should render the component', async () => {
+    await render(CommentsComponent, {
+      ...renderSetup
+    });
+    const result = screen.getByTestId('add-comment-button');
 
-    fixture = TestBed.createComponent(CommentsComponent);
-    component = fixture.componentInstance;
+    expect(result).toBeTruthy();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should render no comments when comments data is empty', async () => {
+    await render(CommentsComponent, {
+      ...renderSetup,
+      componentProperties: { comments: signal([]) }
+    });
 
-  it('should not allow to mention same user more than once', undefined);
+    const result = screen.getByTestId('no-comments');
+
+    expect(result).toBeTruthy();
+  });
 
   it('should close menu if ESC key pressed', undefined);
-
-  it('should notify valid users mentioned after @ character', undefined);
 
   it('should bold valid users mentioned after @ character', undefined);
 

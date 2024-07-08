@@ -1,6 +1,7 @@
 <label for="commentInput" class="block mb-2 text-sm">New Comment:</label>
 <textarea
   #commentInput
+  data-test-id="comment-input-textbox"
   id="commentInput"
   rows="5"
   class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300"
@@ -12,7 +13,7 @@
 ></textarea>
 
 @if (showMenu) {
-  <div *ngIf="showMenu" class="menu-container">
+  <div class="menu-container" data-test-id="comment-input-user-mention-menu">
     <ul>
       @for (user of filteredUsers; track $index) {
         <li
@@ -33,5 +34,7 @@
 
 <div class="flex justify-end mt-4 gap-2">
   <button type="button" mat-stroked-button (click)="onCancelButtonPress()">Cancel</button>
-  <button type="button" mat-flat-button (click)="onConfirmButtonPress()">Post Comment</button>
+  <button type="button" data-test-id="comment-input-confirm-button" mat-flat-button (click)="onConfirmButtonPress()">
+    Post Comment
+  </button>
 </div>

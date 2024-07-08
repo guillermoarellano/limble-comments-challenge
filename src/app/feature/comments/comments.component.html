@@ -12,13 +12,19 @@
           @for (comment of comments(); track comment.commentID) {
             <li><lmbl-comment [comment]="comment"></lmbl-comment></li>
           } @empty {
-            <li>
+            <li data-test-id="no-comments">
               <p>No comments</p>
             </li>
           }
         </ul>
         <div class="flex justify-end mt-4">
-          <button type="button" mat-flat-button (click)="showCommentInputSection()" [disabled]="showCommentInput">
+          <button
+            data-test-id="add-comment-button"
+            type="button"
+            mat-flat-button
+            (click)="showCommentInputSection()"
+            [disabled]="showCommentInput"
+          >
             Add Comment
           </button>
         </div>
