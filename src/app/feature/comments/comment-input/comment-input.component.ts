@@ -45,12 +45,20 @@ export class CommentInputComponent {
 
     if (this.showMenu && (keyupEvent.key === 'Enter' || keyupEvent.key === 'Tab')) {
       this.selectUser(this.filteredUsers[this.selectedIndex]);
-      this.closeMenu();
       return;
     }
 
     if (lastAtIndex !== -1) {
       const mentionQuery = textBeforeCursor.substring(lastAtIndex + 1);
+
+      // Check if the character before '@' is a space, empty (start of line), or newline
+      const charBeforeAt = textBeforeCursor.charAt(lastAtIndex - 1);
+      if (charBeforeAt !== ' ' && charBeforeAt !== '' && charBeforeAt !== '\n') {
+        this.closeMenu();
+        return;
+      }
+
+
       this.filteredUsers = this.users().filter((user) => user.name.toLowerCase().includes(mentionQuery.toLowerCase()));
 
       if (this.filteredUsers.length > 0) {
@@ -78,10 +86,10 @@ export class CommentInputComponent {
     }
   }
 
-  onTabDown(): void {
+  onTabDown(tabKeyupEvent: Event): void {
     if (this.showMenu) {
+      tabKeyupEvent.preventDefault();
       this.selectUser(this.filteredUsers[this.selectedIndex]);
-      this.closeMenu();
     }
   }
 
@@ -100,6 +108,7 @@ export class CommentInputComponent {
       textBeforeCursor.substring(0, lastAtIndex + 1) + user.name + ' ' + textarea.value.substring(cursorPosition);
 
     this.closeMenu();
+    textarea.focus(); // bring focus after menu closes
   }
 
   onConfirmButtonPress(): void {
